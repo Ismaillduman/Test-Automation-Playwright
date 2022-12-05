@@ -1,11 +1,17 @@
 const {test, expect} = require('@playwright/test');
 
-test('First Playwright test', async({browser})=>{
+test.only('First Playwright test', async({browser})=>{
 
 
 const context= await browser.newContext();
 const page= await context.newPage();
-await page.goto('https://www.bequalified.de/');
+await page.goto('https://sso.teachable.com/secure/9521/identity/login/password');
+
+await page.locator('#email').type('ismailduman');
+await page.locator("[name='password']").type('ismail');
+await page.locator("input[value='Log in']").click();
+console.log(await page.locator('.text-with-icon').textContent());
+
 
 });
 test('Page Playwright test', async({page})=>{
