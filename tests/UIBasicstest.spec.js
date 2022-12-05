@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 
-test.only("First Playwright test", async ({ browser }) => {
+test("First Playwright test", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   const username = page.locator("#username");
@@ -23,7 +23,14 @@ test.only("First Playwright test", async ({ browser }) => {
   await username.fill("");
   await username.fill("rahulshettyacademy");
   await password.fill("learning");
-  await SinginBttn.click();
+  await Promise.all()
+  await SinginBttn.click(
+    [
+      page.waitForNavigation(), // thats for non server based application
+      SinginBttn.click(),
+
+    ]
+  );
 
   console.log(await cardTitles.first().textContent());
   console.log(await cardTitles.nth(1).textContent());
@@ -31,11 +38,11 @@ test.only("First Playwright test", async ({ browser }) => {
   console.log(await cardTitles.last().textContent());
 
 });
-test("Page Playwright test", async ({ page }) => {
+/*test("Page Playwright test", async ({ page }) => {
   // with 'only' keyword i can run only this test
   //const context= await browser.newContext(); // these are consist as a default in playwright
   //const page= await context.newPage();
   await page.goto("https://www.youtube.com/");
   console.log(await page.title());
   await expect(page).toHaveTitle("YouTube");
-});
+});*/

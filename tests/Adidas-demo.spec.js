@@ -9,6 +9,7 @@ test('Demo blaze login page', async({ browser}) => {
     const loginPageBtn= page.locator("button[onclick='logIn()']");
     const cardTitle= page.locator('.card-title a');
     await page.goto("https://demoblaze.com/index.html");
+    await page.waitForLoadState('networkidle'); // for Server based Application
     await loginBtn.click();
     //await username.click();
     await username.fill("username");
