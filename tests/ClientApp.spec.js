@@ -1,25 +1,32 @@
-const {test, expect}= require("@playwright/test");
-test.only('Client App login', async({ browser}) => {
-    const context = await browser.newContext();
-    const page = await context.newPage();
+const { test, expect } = require("@playwright/test");
+test.only("Client App login", async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
-    const loginBtn = page.locator("[value='Login']");
-    const username= page.locator('#userEmail');
-    const password= page.locator('#userPassword');
-    
-    const cardTitle= page.locator('.card-body b');
-    await page.goto("https://rahulshettyacademy.com/client/");
-    await page.waitForLoadState('networkidle'); // for Server based Application
-    await username.type("ismaildumann@web.de");
-    await password.fill("HKNclb8318.");
-    await loginBtn.click();
+  const loginBtn = page.locator("[value='Login']");
+  const username = page.locator("#userEmail");
+  const password = page.locator("#userPassword");
+  const productsName = 'zara coat 3';
+  const products = page.locator(".card-body");
+  const addCart= page.locator("text=  Add To Cart");
+  await page.goto("https://rahulshettyacademy.com/client/");
  
-    
-  
+  await username.type("ismaildumann@web.de");
+  await password.fill("HKNclb8318.");
+  await loginBtn.click();
 
+  await page.waitForLoadState("networkidle"); // for Server based Application
+  //console.log(await products.first().textContent());
+  console.log(await products.allTextContents());
 
+  const count = await products.count();
+  for(let i=0;i<count;++i){
+if( await products.nth(i).locator("b").textContent()=== productsName){
+//add to chart
+await products.nth(i).locator("text=  Add To Cart").click();
+break;
 
-    console.log(await cardTitle.first().textContent());
-    console.log(await cardTitle.allTextContents());
-
+  }}
+  await page.pause();
 });
+ 
