@@ -59,7 +59,7 @@ test("UI Controls", async ({ page }) => {
 
 //to handel child web page on a new tab create a new test block and a newPage
 
-test.only("Child Webpage", async ({ browser }) => {
+test("Child Webpage", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
@@ -79,6 +79,6 @@ test.only("Child Webpage", async ({ browser }) => {
   const arrayText = await text.split("@");
   const domain = await arrayText[1].split(" ")[0];
   await page.locator("#username").type(domain);
-  await page.pause();
+  //await page.pause();
   console.log(await page.locator("#username").textContent());
 });
