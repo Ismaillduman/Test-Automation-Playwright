@@ -11,6 +11,7 @@ await page.locator('#email').type('ismailduman');
 await page.locator("[name='password']").type('ismail');
 await page.locator("input[value='Log in']").click();
 console.log(await page.locator('.text-with-icon').textContent());
+await expect(page.locator('.text-with-icon')).toContainText('Your email or password is incorrect.');
 
 
 });
