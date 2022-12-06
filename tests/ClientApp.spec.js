@@ -27,6 +27,9 @@ await products.nth(i).locator("text=  Add To Cart").click();
 break;
 
   }}
-  await page.pause();
+  await page.locator("[routerlink*='cart']").click();
+  await page.locator("div li[class*='even']").waitFor();
+  const bool= await page.locator("h3:has-text('zara coat 3')").isVisible();
+  expect(bool).toBeTruthy();
 });
  
