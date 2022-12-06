@@ -3,14 +3,16 @@ test.only("Client App login", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
 
+  const email = "ismaildumann@web.de";
+
   const loginBtn = page.locator("[value='Login']");
   const username = page.locator("#userEmail");
   const password = page.locator("#userPassword");
-  const productsName = 'zara coat 3';
+  const productsName = "zara coat 3";
   const products = page.locator(".card-body");
-  const addCart= page.locator("text=  Add To Cart");
+  const addCart = page.locator("text=  Add To Cart");
   await page.goto("https://rahulshettyacademy.com/client/");
- 
+
   await username.type("ismaildumann@web.de");
   await password.fill("HKNclb8318.");
   await loginBtn.click();
@@ -20,16 +22,28 @@ test.only("Client App login", async ({ browser }) => {
   console.log(await products.allTextContents());
 
   const count = await products.count();
-  for(let i=0;i<count;++i){
-if( await products.nth(i).locator("b").textContent()=== productsName){
-//add to chart
-await products.nth(i).locator("text=  Add To Cart").click();
-break;
-
-  }}
+  for (let i = 0; i < count; ++i) {
+    if ((await products.nth(i).locator("b").textContent()) === productsName) {
+      //add to chart
+      await products.nth(i).locator("text=  Add To Cart").click();
+      break;
+    }
+  }
   await page.locator("[routerlink*='cart']").click();
   await page.locator("div li[class*='even']").waitFor();
-  const bool= await page.locator("h3:has-text('zara coat 3')").isVisible();
+  const bool = await page.locator("h3:has-text('zara coat 3')").isVisible();
   expect(bool).toBeTruthy();
+  await page.locator("text='Checkout'").click();
+  await page.locator("[placeholder*='Country']").type("ind", { delay: 100 });
+  const dropDown = page.locator(".ta-results");
+  await dropDown.waitFor();
+  const optionsCount = await dropDown.locator("button").count();
+  for (let i = 0; i < optionsCount; i++) {
+    const text = await dropDown.locator("button").nth(i).textContent();
+    if (text === " India") {
+      await dropDown.locator("button").nth(i).click();
+      break;
+    }
+  }
+  
 });
- 
