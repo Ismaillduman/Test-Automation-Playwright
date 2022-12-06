@@ -1,7 +1,7 @@
 const { test, expect, request} = require("@playwright/test");
 const loginPayLoad= {userEmail: "ismaildumann@web.de", userPassword: "HKNclb8318."}
 
-
+let token;
 test.beforeAll(async()=>
 {
     const apiContext = await request.newContext();
@@ -11,12 +11,13 @@ test.beforeAll(async()=>
     })
     expect (loginResponse.ok()).toBeTruthy();
     const loginResponseJson= await loginResponse.json();
-    const token= loginResponseJson.token;
+     token= loginResponseJson.token;
     console.log(token);
 });
-test("Client App login", async ({ browser }) => {
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Client App login", async ({ page }) => {
+    page.addInitScript(value => {
+        window.localStorage.setItem('token',value);
+    },token);
 
   const email = "ismaildumann@web.de";
   
@@ -28,11 +29,11 @@ test("Client App login", async ({ browser }) => {
   const addCart = page.locator("text=  Add To Cart");
   await page.goto("https://rahulshettyacademy.com/client/");
 
-  await username.type("ismaildumann@web.de");
-  await password.fill("HKNclb8318.");
-  await loginBtn.click();
+//   await username.type("ismaildumann@web.de");
+//   await password.fill("HKNclb8318.");
+//   await loginBtn.click();
 
-  await page.waitForLoadState("networkidle"); // for Server based Application
+  //await page.waitForLoadState("networkidle"); // for Server based Application
   //console.log(await products.first().textContent());
   console.log(await products.allTextContents());
 
