@@ -89,3 +89,20 @@ test("Client App login", async () => {
 const orderIdDetails= await page.locator('.col-text').textContent();
  expect(orderId.includes(orderIdDetails)).toBeTruthy();
 });
+
+
+test("Test Case 2", async () => {
+  
+ 
+
+    const email = "ismaildumann@web.de";
+  const productsName = "zara coat 3";
+   const page = await webContext.newPage();
+   await page.goto("https://rahulshettyacademy.com/client/");
+  const products = page.locator(".card-body");
+  const addCart = page.locator("text=  Add To Cart");
+   // for Server based Application
+  //console.log(await products.first().textContent());
+  console.log(await products.allTextContents());
+
+});
