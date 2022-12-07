@@ -1,12 +1,8 @@
 const { test, expect, request} = require("@playwright/test");
 const loginPayLoad= {userEmail: "ismaildumann@web.de", userPassword: "HKNclb8318."}
-const orderPayLoad = {
-    orders:[
-        {
-            country:"Cuba",
-            productOrderedId:"6262e9d9e26b7e1a10e89c04"
-        }
-    ]};
+const orderPayLoad = {orders: [{country: "India", 
+productOrderedId: "6262e95ae26b7e1a10e89bf0"}]};
+
 let token;
 let orderId;
 test.beforeAll(async()=>
@@ -29,9 +25,10 @@ test.beforeAll(async()=>
 //call and create one order
             'Autohorization': token,
             'Content-Type': 'application/json'
-        }
+            
+        },
     
-    } );
+    } )
     const orderResponsJson= await orderResponse.json();
     console.log(orderResponsJson);
     orderId= orderResponsJson.orders[0];
