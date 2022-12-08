@@ -1,4 +1,5 @@
-const { test, expect } = require("@playwright/test");
+const {test, expect} = require('@playwright/test');
+const {coustomtest} = require('../utils/test-base');
 const {POMManager}= require('../POM/POMManager.spec');
 //Json-->string ->js object
 const dataset= JSON.parse(JSON.stringify(require("../utils/placaOrderTestData.json")));
@@ -60,3 +61,21 @@ const orderIdDetails= await page.locator('.col-text').textContent();
  expect(orderId.includes(orderIdDetails)).toBeTruthy();
 });
 }
+coustomtest.only(`Client App login POM`, async ({ page,testDataForOrder }) =>
+{
+
+  const poManager = new POMManager(page);
+  
+ 
+  
+  const loginPage = poManager.getLoginPage();
+  await loginPage.goTo();
+  await loginPage.validLogin(testDataForOrder.username,testDataForOrder.password);
+  const dashboardPage=poManager.getDashboardPage();
+  await dashboardPage.searchProductAddCart(testDataForOrder.productsName);
+  await dashboardPage.navigetToCart();
+
+  const cartPage = poManager.getCartPage();
+  await cartPage.VerifyProductIsDisplayed(testDataForOrder.productsName);
+  await cartPage.Checkout();
+})
