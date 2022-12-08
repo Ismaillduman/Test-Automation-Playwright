@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-test("Client App login", async ({ browser }) => {
+test.skip("Client App login", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
 
