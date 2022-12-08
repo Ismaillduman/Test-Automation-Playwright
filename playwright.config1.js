@@ -47,12 +47,13 @@ const config = {
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'safari execution',
+      name: 'safari',
       use: {
         browserName :'webkit',
-        headless: true ,// when i dont wanto use --headed write this code hier
+        headless: false ,// when i dont wanto use --headed write this code hier
         screenshot: 'only-on-failure',
-        trace: 'retain-on-failure' // off the on to memory
+        trace: 'retain-on-failure', // off the on to memory
+        //...devices['iPad Pro 11'],
       },
     },
     {
@@ -61,7 +62,8 @@ const config = {
         browserName : 'chromium',
         headless: false ,// when i dont wanto use --headed write this code hier
         screenshot: 'only-on-failure',
-        trace: 'retain-on-failure' // off the on to memory
+        trace: 'retain-on-failure' ,// off the on to memory
+        //viewport : {width:720, height:720}
       },
     },
 
