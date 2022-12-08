@@ -22,6 +22,8 @@ async validLogin(username,password){
 await this.userName.type(username);
 await this.password.type(password);
 await this.signButton.click();
+this.page.waitForLoadState("networkidle"); // for Server based Application
+  //console.log(await products.first().textContent());
 
 }
 }

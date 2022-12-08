@@ -1,35 +1,31 @@
 const { test, expect } = require("@playwright/test");
-const { LoginPage } = require("../POM/LoginPage.spec");
-test("Client App login POM", async ({ page }) => {
-  const username = "ismaildumann@web.de";
-  const password="HKNclb8318.";
+const {POMManager}= require('../POM/POMManager.spec');
+//Json-->string ->js object
+const dataset= JSON.parse(JSON.stringify(require("../utils/placaOrderTestData.json")));
+//with the JSON.parse i convert json to javascript
+
+for(const data of dataset){
+test(`Client App login POM for ${data.productsName}`, async ({ page }) => {
+
+  const poManager = new POMManager(page);
   
-  const productsName = "zara coat 3";
-  const products = page.locator(".card-body");
-  const loginPage= new LoginPage(page);
-  loginPage.goTo();
-  loginPage.validLogin(username,password);
+ 
   
+  const loginPage = poManager.getLoginPage();
+  await loginPage.goTo();
+  await loginPage.validLogin(data.username,data.password);
+  const dashboardPage=poManager.getDashboardPage();
+  await dashboardPage.searchProductAddCart(data.productsName);
+  await dashboardPage.navigetToCart();
+
+  const cartPage = poManager.getCartPage();
+  await cartPage.VerifyProductIsDisplayed(data.productsName);
+  await cartPage.Checkout();
 
  
-
-  await page.waitForLoadState("networkidle"); // for Server based Application
-  //console.log(await products.first().textContent());
-  console.log(await products.allTextContents());
-
-  const count = await products.count();
-  for (let i = 0; i < count; ++i) {
-    if ((await products.nth(i).locator("b").textContent()) === productsName) {
-      //add to chart
-      await products.nth(i).locator("text=  Add To Cart").click();
-      break;
-    }
-  }
-  await page.locator("[routerlink*='cart']").click();
-  await page.locator("div li[class*='even']").waitFor();
-  const bool = await page.locator("h3:has-text('zara coat 3')").isVisible();
-  expect(bool).toBeTruthy();
-  await page.locator("text='Checkout'").click();
+ 
+ 
+  //await page.locator("text='Checkout'").click();
   await page.locator("[placeholder*='Country']").type("ind", { delay: 100 });
   const dropDown = page.locator(".ta-results");
   await dropDown.waitFor();
@@ -41,7 +37,7 @@ test("Client App login POM", async ({ page }) => {
       break;
     }
   }
-  await expect(page.locator(".user__name [type='text']").first()).toHaveText(username);
+  await expect(page.locator(".user__name [type='text']").first()).toHaveText(data.username);
   await page.locator(".action__submit").click();
   await expect(page.locator(".hero-primary")).toHaveText('Thankyou for the order.');
   const orderId= await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
@@ -63,3 +59,4 @@ test("Client App login POM", async ({ page }) => {
 const orderIdDetails= await page.locator('.col-text').textContent();
  expect(orderId.includes(orderIdDetails)).toBeTruthy();
 });
+}
