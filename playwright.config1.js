@@ -63,9 +63,10 @@ const config = {
         headless: false ,// when i dont wanto use --headed write this code hier
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure' ,// off the on to memory
-        //viewport : {width:720, height:720}
+        viewport : {width:720, height:720},
         ignoreHTTPSErrors:true,
         permissions:['geolocation'],
+        video: 'retain-on-failure' ,
       },
     },
 
