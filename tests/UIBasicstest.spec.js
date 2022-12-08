@@ -1,5 +1,7 @@
 const { test, expect, request } = require("@playwright/test");
-
+//normaly in config file we can not run inviduel tests as paralel
+//but that can be able to configüre
+test.describe.configure({mode: 'parallel'});
 test("First Playwright test", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();

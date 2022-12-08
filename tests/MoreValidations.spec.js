@@ -1,6 +1,6 @@
 const{test,expect}= require("@playwright/test");
 
-test.only('Moe validation',async({page}) =>{
+test('Moe validation',async({page}) =>{
 
 await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
 

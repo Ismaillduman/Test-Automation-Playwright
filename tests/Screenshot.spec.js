@@ -40,7 +40,7 @@ test('Screenshot and Visual comparision',async({page}) =>{
     //await page.pause();
 });  
 
-test.only('visual',async({page})=>
+test('visual',async({page})=>
 
 {
 
