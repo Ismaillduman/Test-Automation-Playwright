@@ -64,6 +64,7 @@ const config = {
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure' ,// off the on to memory
         //viewport : {width:720, height:720}
+        ignoreHTTPSErrors:true,
       },
     },
 
