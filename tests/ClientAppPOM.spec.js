@@ -61,7 +61,7 @@ const orderIdDetails= await page.locator('.col-text').textContent();
  expect(orderId.includes(orderIdDetails)).toBeTruthy();
 });
 }
-coustomtest.only(`Client App login POM`, async ({ page,testDataForOrder }) =>
+coustomtest(`Client App login POM`, async ({ page,testDataForOrder }) =>
 {
 
   const poManager = new POMManager(page);

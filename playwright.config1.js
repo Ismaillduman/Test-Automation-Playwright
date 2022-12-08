@@ -14,6 +14,7 @@ const { devices } = require('@playwright/test');
  */
 const config = {
   testDir: './tests',
+  retries :1, //when consist a failuer run one more time
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -28,7 +29,7 @@ const config = {
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  //retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -63,7 +64,7 @@ const config = {
         headless: false ,// when i dont wanto use --headed write this code hier
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure' ,// off the on to memory
-        viewport : {width:720, height:720},
+        //viewport : {width:720, height:720},
         ignoreHTTPSErrors:true,
         permissions:['geolocation'],
         video: 'retain-on-failure' ,
