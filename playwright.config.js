@@ -51,7 +51,7 @@ const config = {
       use: {
         ...devices['Desktop Chrome'],
         headless: false ,// when i dont wanto use --headed write this code hier
-        screenshot: 'on',
+        screenshot: 'only-on-failure',
         trace: 'retain-on-failure' // off the on to memory
       },
     },
