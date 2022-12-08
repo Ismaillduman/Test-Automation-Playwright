@@ -91,7 +91,7 @@ const orderIdDetails= await page.locator('.col-text').textContent();
 });
 
 
-test("Test Case 2", async () => {
+test('@API Test Case 2', async () => {
   
  
 
