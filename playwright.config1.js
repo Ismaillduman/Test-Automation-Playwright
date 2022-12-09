@@ -15,7 +15,7 @@ const { devices } = require('@playwright/test');
 const config = {
   testDir: './tests',
   retries :2,  //when consist a failuer run one more time
-  workers:5, //i want to how many test process 
+  workers:2, //i want to how many test process 
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {

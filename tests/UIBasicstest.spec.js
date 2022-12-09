@@ -2,7 +2,7 @@ const { test, expect, request } = require("@playwright/test");
 //normaly in config file we can not run inviduel tests as paralel
 //but that can be able to configüre
 test.describe.configure({mode: 'parallel'});
-test("First Playwright test", async ({ browser }) => {
+test("@web First Playwright test", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
  // page.route('**/*.{jpg,png,jpeg}', route=> route.abort());
@@ -39,7 +39,7 @@ test("First Playwright test", async ({ browser }) => {
   console.log(await cardTitles.nth(2).textContent());
   console.log(await cardTitles.last().textContent());
 });
-test("UI Controls", async ({ page }) => {
+test("@web UI Controls", async ({ page }) => {
   const username = page.locator("#username");
   const password = page.locator("#password");
   const SinginBttn = page.locator("#signInBtn");
@@ -65,7 +65,7 @@ test("UI Controls", async ({ page }) => {
 
 //to handel child web page on a new tab create a new test block and a newPage
 
-test("Child Webpage", async ({ browser }) => {
+test("@web Child Webpage", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");

@@ -6,7 +6,7 @@ const dataset= JSON.parse(JSON.stringify(require("../utils/placaOrderTestData.js
 //with the JSON.parse i convert json to javascript
 
 for(const data of dataset){
-test(`@web Client App login POM for ${data.productsName}`, async ({ page }) => {
+test(` Client App login POM for ${data.productsName}`, async ({ page }) => {
 
   const poManager = new POMManager(page);
   
